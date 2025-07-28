@@ -1,0 +1,29 @@
+<form action="/feedbacks" method="post" class="max-w-xl mx-auto bg-grey p-8 rounded-xl shadow space-y-6">
+  <input type="hidden" name="_csrf_token" value={Plug.CSRFProtection.get_csrf_token()} />
+  <h2 class="text-2xl font-bold text-gray-800 text-center">Send Feedback</h2>
+  <!-- Name -->
+  <div>
+    <label for="name" class="block mb-1 text-gray-700 font-medium"> First Name</label>
+    <input type="text" id="name" name="feedback[firstname]" required class="w-full border p-2 rounded" />
+     <label for="name" class="block mb-1 text-gray-700 font-medium"> Last name</label>
+    <input type="text" id="name" name="feedback[lastname]" required class="w-full border p-2 rounded" />
+  </div>
+  <!-- Email -->
+  <div>
+    <label for="email" class="block mb-1 text-gray-700 font-medium">Email</label>
+    <input type="email" id="email" name="feedback[email]" required class="w-full border p-2 rounded" />
+  </div>
+  <!-- Feedback -->
+  <div>
+    <label for="feedback" class="block mb-1 text-gray-700 font-medium">Feedback</label>
+      <textarea id="feedback" name="feedback[feedback]" required rows="4" class="w-full border p-2 rounded"><%= @changeset.params["feedback"] || "" %></textarea>
+    <%= if error = Keyword.get(@changeset.errors, :feedback) do %>
+  <% {msg, _opts} = error %>
+  <p class="text-red-500 text-sm mt-1"><%= msg %></p>
+<% end %>
+  </div>
+  <!-- Submit -->
+  <div class="text-center">
+    <button type="submit" class="bg-red-600 hover:bg-blue-700 text-white px-6 py-2 rounded">Submit</button>
+  </div>
+</form>

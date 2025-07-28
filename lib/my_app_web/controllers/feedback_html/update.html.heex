@@ -1,0 +1,31 @@
+<form  action={~p"/feedback/update/#{@feedback.id}"}
+ method="post"  value="put" class="max-w-xl mx-auto bg-white p-8 rounded-xl shadow space-y-6">
+  <input type="hidden" name="_csrf_token" value={Plug.CSRFProtection.get_csrf_token()} />
+  <input type="hidden" name="_method" value="put" />
+  <h2 class="text-2xl font-bold text-gray-800 text-center">Update Feedback</h2>
+
+  <!-- Name -->
+  <div>
+    <label for="name" class="block mb-1 text-gray-700 font-medium">Name</label>
+    <input type="text" id="name" name="feedback[name]" value={@feedback.name} required class="w-full border p-2 rounded" />
+  </div>
+
+  <!-- Email -->
+  <div>
+    <label for="email" class="block mb-1 text-gray-700 font-medium">Email</label>
+    <input type="email" id="email" name="feedback[email]" value={@feedback.email} required class="w-full border p-2 rounded" />
+  </div>
+
+  <!-- Feedback -->
+  <div>
+    <label for="feedback" class="block mb-1 text-gray-700 font-medium">Feedback</label>
+    <textarea id="feedback" name="feedback[feedback]" required rows="4" class="w-full border p-2 rounded">
+      <%= @feedback.feedback %>
+    </textarea>
+  </div>
+
+  <!-- Submit -->
+  <div class="text-center">
+    <button type="submit" class="bg-yellow-600 hover:bg-yellow-700 text-white px-6 py-2 rounded">Update</button>
+  </div>
+</form>
