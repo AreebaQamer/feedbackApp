@@ -1,6 +1,5 @@
 defmodule MyAppWeb.Router do
   use MyAppWeb, :router
-
   pipeline :browser do
     plug :accepts, ["html"]
     plug :fetch_session
@@ -18,6 +17,8 @@ defmodule MyAppWeb.Router do
  get "/", PageController, :home
   # get form of creation of feedback
  get "/feedback/create", FeedbackController, :new
+
+
 # Show greetings page after submission
  get "/feedback/greetings", FeedbackController, :greetings
 # View all feedback entries with search
