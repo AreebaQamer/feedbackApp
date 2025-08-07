@@ -160,8 +160,8 @@ h1 {
     </div>
 
     <div id="feedback-list">
-      <%= if Enum.empty?(@feedbacks) do %>
-        <p class="empty-message">No feedback received yet.</p>
+      <%= if Enum.empty?(@user_feedbacks) do %>
+        <p class="empty-message">No feedbacks of this user.</p>
       <% else %>
         <table>
           <thead>
@@ -173,15 +173,15 @@ h1 {
             </tr>
           </thead>
           <tbody>
-            <%= for feedback <- @feedbacks do %>
+            <%= for user_feedback <- @user_feedbacks do %>
               <tr>
-                <td><%= feedback.firstname <> " " <> feedback.lastname %></td>
-                <td><%= feedback.email %></td>
-                <td><%= feedback.feedback %></td>
+                <td><%= user_feedback.firstname <> " " <> user_feedback.lastname %></td>
+                <td><%= user_feedback.email %></td>
+                <td><%= user_feedback.feedback %></td>
                 <td>
                   <div class="action-buttons">
-                    <a href={"/feedback/edit/#{feedback.id}"} class="update-button">Update</a>
-                    <form method="post" action={"/feedback/delete/#{feedback.id}"} style="display:inline">
+                    <a href={"/feedback/edit/#{user_feedback.id}"} class="update-button">Update</a>
+                    <form method="post" action={"/feedback/delete/#{user_feedback.id}"} style="display:inline">
                       <input type="hidden" name="_method" value="delete" />
                       <input type="hidden" name="_csrf_token" value={Plug.CSRFProtection.get_csrf_token()} />
                       <button type="submit" class="delete-button" onclick="return confirm('Are you sure?')">Delete</button>

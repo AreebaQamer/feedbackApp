@@ -1,9 +1,19 @@
 defmodule MyAppWeb.PageController do
   use MyAppWeb, :controller
-
-  def home(conn, _params) do
+  alias MyApp.Feedbacks
+      def home(conn, _params) do
     # The home page is often custom made,
     # so skip the default app layout.
     render(conn, :home, layout: false)
+  end
+   def about(conn , _params) do
+    render(conn, :about)
+   end
+    def contact(conn, _params) do
+      render(conn, :contact)
+    end
+  def dashboard(conn, _params) do
+    feedback = Feedbacks.get_latest_feedback() # ya koi logic jisse ek specific feedback mile
+    render(conn, :dashboard , feedback: feedback)
   end
 end

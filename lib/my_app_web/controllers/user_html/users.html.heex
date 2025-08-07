@@ -151,41 +151,36 @@ h1 {
 </head>
 <body>
   <div class="container">
-    <h1>User Feedbacks</h1>
+    <h1> LoggedIn Users</h1>
     <div class="top-bar">
-      <div class="search-wrapper">
-        <input type="text" id="search-input" name="search" placeholder="Search by name"  />
-      </div>
-      <a href="/feedback/create" class="create-button">+ Create</a>
+      
+      <a href="/user/login" class="create-button">+ Create</a>
     </div>
 
     <div id="feedback-list">
-      <%= if Enum.empty?(@feedbacks) do %>
-        <p class="empty-message">No feedback received yet.</p>
+      <%= if Enum.empty?(@users) do %>
+        <p class="empty-message">No users logged in.</p>
       <% else %>
         <table>
           <thead>
             <tr>
-              <th>Full Name</th>
+              <th>Name</th>
               <th>Email</th>
-              <th>Feedback</th>
-              <th>Actions</th>
+              <th>Action</th>
             </tr>
           </thead>
           <tbody>
-            <%= for feedback <- @feedbacks do %>
+            <%= for user <- @users do %>
               <tr>
-                <td><%= feedback.firstname <> " " <> feedback.lastname %></td>
-                <td><%= feedback.email %></td>
-                <td><%= feedback.feedback %></td>
+             <td>
+                <a href={"/users/#{user.id}/feedback"}><%= user.name %></a>
+
+             </td>
+                <td><%= user.email %></td>
                 <td>
                   <div class="action-buttons">
-                    <a href={"/feedback/edit/#{feedback.id}"} class="update-button">Update</a>
-                    <form method="post" action={"/feedback/delete/#{feedback.id}"} style="display:inline">
-                      <input type="hidden" name="_method" value="delete" />
-                      <input type="hidden" name="_csrf_token" value={Plug.CSRFProtection.get_csrf_token()} />
-                      <button type="submit" class="delete-button" onclick="return confirm('Are you sure?')">Delete</button>
-                    </form>
+                    <a href="/feedback/create" class="update-button">Feedback</a>
+                    
                   </div>
                 </td>
               </tr>

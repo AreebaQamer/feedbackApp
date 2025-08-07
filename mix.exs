@@ -34,6 +34,7 @@ defmodule MyApp.MixProject do
     [
       {:phoenix, "~> 1.7.21"},
       {:phoenix_ecto, "~> 4.5"},
+      {:pbkdf2_elixir, "~> 2.0"},
       {:ecto_sql, "~> 3.10"},
       {:postgrex, ">= 0.0.0"},
       {:phoenix_html, "~> 3.3"},

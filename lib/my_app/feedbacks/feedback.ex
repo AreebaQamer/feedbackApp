@@ -3,17 +3,15 @@ defmodule MyApp.Feedbacks.Feedback do
   import Ecto.Changeset
   schema "feedback" do
     field :firstname, :string
-    field :lastname , :string
+    field :lastname ,:string
     field :email, :string
     field :feedback, :string
-    timestamps()
+    belongs_to :user, MyApp.Accounts.Login, foreign_key: :user_id
+    timestamps(type: :utc_datetime)
   end
+  @doc false
   def changeset(feedback, attrs) do
     feedback
     |> cast(attrs, [:firstname, :lastname , :email, :feedback])
-    |> validate_required([:firstname, :lastname , :email])
-    |> validate_format(:email, ~r/@/)
-   |> validate_length(:feedback, max: 300, message: "Feedback cannot be longer than 300 characters.")
-
-  end
+    end
 end

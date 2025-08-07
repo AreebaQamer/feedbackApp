@@ -18,7 +18,6 @@ end
      render(conn, :new, changeset: changeset)
   end
 end
-
    # greetings page
  def greetings(conn,_params) do
    render(conn,:greetings)
@@ -54,20 +53,15 @@ def delete(conn, %{"id" => id}) do
       |> redirect(to: ~p"/feedbacks")
   end
 end
-# get feedback according to search
-def get_feedback(conn, %{"search" => search_term}) do
-    feedbacks =
-      Feedbacks.list_feedback()
-      |> Enum.filter(fn fb ->
-        String.contains?(String.downcase(fb.firstname || ""), String.downcase(search_term))
-      end)
 
-    render(conn, :feedbacks, feedbacks: feedbacks, search: search_term)
-  end
- # get all feedbacks
-  def get_feedback(conn, _params) do
-    feedbacks = Feedbacks.list_feedback()
-    render(conn, :feedbacks, feedbacks: feedbacks, search: "")
-  end
+def get_feedback(conn, %{"search" => search_term}) when byte_size(search_term) > 0 do
+  feedbacks = Feedbacks.search_feedback_by_firstname(search_term)
+  render(conn, :feedbacks, feedbacks: feedbacks, search: search_term)
+end
+
+def get_feedback(conn, _params) do
+  feedbacks = Feedbacks.list_feedback()
+  render(conn, :feedbacks, feedbacks: feedbacks, search: "")
+end
 
 end

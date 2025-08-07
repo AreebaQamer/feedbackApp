@@ -17,8 +17,6 @@ defmodule MyAppWeb.Router do
  get "/", PageController, :home
   # get form of creation of feedback
  get "/feedback/create", FeedbackController, :new
-
-
 # Show greetings page after submission
  get "/feedback/greetings", FeedbackController, :greetings
 # View all feedback entries with search
@@ -30,8 +28,20 @@ defmodule MyAppWeb.Router do
  # update into database
  put "/feedback/update/:id", FeedbackController, :update
   # delete from page as well ad database
- delete "/feedback/:id", FeedbackController, :delete
-
+ delete "/feedback/delete/:id", FeedbackController, :delete
+   get "/user/login", UserController , :login_new
+   post "/user/login", UserController , :login_create
+   get "/user/signup" , UserController ,:signup_new
+   post "/user/signup", UserController , :signup_create
+   get "/about" , PageController ,:about
+   get "/contact"  , PageController ,:contact
+   get "/dashboard" ,PageController , :dashboard
+   live "/products-live" ,ProductLive.Index
+  live "/dashboard123", DashBoard.Index
+   get "/register/user" , RegisterController , :register
+   post "/register/user" , RegisterController , :register_user
+   get "/users/:user_id/feedback", UserController, :get_userfeedbacks
+   get "/users" , UserController , :get_users
   end
 
   # Other scopes may use custom stacks.

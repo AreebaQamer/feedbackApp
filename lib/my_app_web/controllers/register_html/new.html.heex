@@ -1,0 +1,76 @@
+<div class="mt-8 mb-8">
+  <form method="post" class="max-w-xl mx-auto bg-white p-10 rounded-2xl shadow-lg space-y-6 border border-gray-200">
+    <input type="hidden" name="_csrf_token" value={Plug.CSRFProtection.get_csrf_token()} />
+    <h2 class="text-3xl font-bold text-center text-gray-800">User Registration</h2>
+    <!-- NAME -->
+    <div>
+      <label for="name" class="block mb-2 text-sm font-medium text-gray-700">Name</label>
+      <input type="text" id="name" name="register[name]" 
+             class="w-full border border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" />
+    <%= if @changeset.action && Keyword.has_key?(@changeset.errors, :name) do %>
+  <%= for {msg, _opts} <- Keyword.get_values(@changeset.errors, :name) do %>
+    <p class="text-red-500 text-sm mt-1"><%= msg %></p>
+  <% end %>
+<% end %>
+
+    </div>
+
+    <!-- EMAIL -->
+    <div>
+      <label for="email" class="block mb-2 text-sm font-medium text-gray-700">Email</label>
+      <input type="email" id="email" name="register[email]" 
+             class="w-full border border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" />
+     <%= if @changeset.action && Keyword.has_key?(@changeset.errors, :email) do %>
+  <%= for {msg, _opts} <- Keyword.get_values(@changeset.errors, :email) do %>
+    <p class="text-red-500 text-sm mt-1"><%= msg %></p>
+  <% end %>
+<% end %>
+    </div>
+
+    <!-- PASSWORD -->
+    <div>
+      <div>
+  <label for="password" class="block mb-2 text-sm font-medium text-gray-700">Password</label>
+  <input type="password" id="password" name="register[password]" 
+         class="w-full border border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" />
+  <%= if @changeset.action && Keyword.has_key?(@changeset.errors, :password) do %>
+  <%= for {msg, _opts} <- Keyword.get_values(@changeset.errors, :password) do %>
+    <p class="text-red-500 text-sm mt-1"><%= msg %></p>
+  <% end %>
+<% end %>
+</div>
+    </div>
+
+    <!-- AGE -->
+    <div>
+      <label for="age" class="block mb-2 text-sm font-medium text-gray-700">Age</label>
+      <input type="number" id="age" name="register[age]" 
+             class="w-full border border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" />
+      <%= if @changeset.action && Keyword.has_key?(@changeset.errors, :age) do %>
+  <%= for {msg, _opts} <- Keyword.get_values(@changeset.errors, :age) do %>
+    <p class="text-red-500 text-sm mt-1"><%= msg %></p>
+  <% end %>
+<% end %>
+    </div>
+
+    <!-- STATUS -->
+    <div>
+      <label for="status" class="block mb-2 text-sm font-medium text-gray-700">Status</label>
+      <input type="text" id="status" name="register[status]" 
+             class="w-full border border-gray-300 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" />
+      <%= if @changeset.action && Keyword.has_key?(@changeset.errors, :status) do %>
+  <%= for {msg, _opts} <- Keyword.get_values(@changeset.errors, :status) do %>
+    <p class="text-red-500 text-sm mt-1"><%= msg %></p>
+  <% end %>
+<% end %>
+    </div>
+
+    <!-- Submit Button -->
+    <div class="text-center">
+      <button type="submit"
+              class="bg-blue-600 hover:bg-blue-700 transition-colors duration-200 text-white px-8 py-3 rounded-xl font-semibold shadow-md">
+        Submit
+      </button>
+    </div>
+  </form>
+</div>

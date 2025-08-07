@@ -19,4 +19,49 @@ defmodule MyApp.AccountsFixtures do
 
     feedback
   end
+
+  @doc """
+  Generate a user.
+  """
+  def user_fixture(attrs \\ %{}) do
+    {:ok, user} =
+      attrs
+      |> Enum.into(%{
+        email: "some email",
+        password_hash: "some password_hash"
+      })
+      |> MyApp.Accounts.create_user()
+
+    user
+  end
+
+  @doc """
+  Generate a user.
+  """
+  def user_fixture(attrs \\ %{}) do
+    {:ok, user} =
+      attrs
+      |> Enum.into(%{
+        email: "some email",
+        password: "some password"
+      })
+      |> MyApp.Accounts.create_user()
+
+    user
+  end
+
+  @doc """
+  Generate a login.
+  """
+  def login_fixture(attrs \\ %{}) do
+    {:ok, login} =
+      attrs
+      |> Enum.into(%{
+        email: "some email",
+        password: "some password"
+      })
+      |> MyApp.Accounts.create_login()
+
+    login
+  end
 end

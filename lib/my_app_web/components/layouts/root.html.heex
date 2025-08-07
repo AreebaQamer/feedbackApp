@@ -1,17 +1,73 @@
 <!DOCTYPE html>
-<html lang="en" class="[scrollbar-gutter:stable]">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="csrf-token" content={get_csrf_token()} />
-    <.live_title default="MyApp" suffix=" · Phoenix Framework">
-      {assigns[:page_title]}
-    </.live_title>
-    <link phx-track-static rel="stylesheet" href={~p"/assets/app.css"} />
-    <script defer phx-track-static type="text/javascript" src={~p"/assets/app.js"}>
-    </script>
-  </head>
-  <body class="bg-white">
-    {@inner_content}
-  </body>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title><%= assigns[:page_title] || "Feedbackly" %></title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;900&display=swap" />
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+</head>
+
+<body class="bg-slate-50 font-sans" style="font-family: Inter, sans-serif;">
+
+  <div class="min-h-screen flex flex-col overflow-x-hidden">
+
+    <!-- ✅ Conditional Navbar -->
+    <%= unless @conn.request_path == "/products-live" do %>
+      <header class="border-b border-slate-200 bg-white shadow-sm px-6 py-4 md:px-10 flex items-center justify-between">
+        <div class="flex items-center gap-3">
+          <svg class="w-6 h-6 text-blue-600" fill="currentColor" viewBox="0 0 48 48">
+            <path d="M8.578 8.578a22 22 0 1130.844 30.844L24 24 8.578 8.578z"/>
+          </svg>
+          <h1 class="text-xl font-bold text-gray-900">Feedbackly</h1>
+        </div>
+        <nav class="hidden md:flex gap-6 text-lg font-medium text-gray-700">
+          <.link navigate={~p"/"} class="hover:text-blue-600">Home</.link>
+          <.link navigate={~p"/about"} class="hover:text-blue-600">About</.link>
+          <.link navigate={~p"/contact"} class="hover:text-blue-600">Contact</.link>
+          <.link navigate={~p"/dashboard"} class="hover:text-blue-600">Feedback</.link>
+        </nav>
+        <div class="flex gap-2">
+          <.link navigate={~p"/user/signup"} class="bg-blue-600 text-white px-4 py-2 rounded-md font-semibold hover:bg-blue-700 transition">Signup</.link>
+          <.link navigate={~p"/user/login"} class="bg-slate-200 text-gray-800 px-4 py-2 rounded-md font-semibold hover:bg-slate-300 transition">Login</.link>
+        </div>
+      </header>
+    <% end %>
+    <!-- Page content slot -->
+    <main class="flex-grow">
+      <%= @inner_content %>
+    </main>
+    <!-- Footer -->
+    
+    <footer class="bg-slate-100 text-gray-700 mt-auto">
+     
+      <div class="max-w-screen-xl mx-auto px-6 py-10 grid grid-cols-1 md:grid-cols-3 gap-10">
+         
+        <div>
+          <h4 class="text-xl font-bold mb-2 text-gray-900">Feedbackly</h4>
+          <p class="text-sm text-gray-600">Collect and manage customer feedback to grow better and smarter.</p>
+        </div>
+        <div>
+          <h4 class="text-lg font-semibold mb-3 text-gray-900">Quick Links</h4>
+          <ul class="space-y-2 text-sm">
+            <li><a href="/" class="hover:text-blue-500 transition">Home</a></li>
+            <li><a href="/about" class="hover:text-blue-500 transition">About</a></li>
+            <li><a href="/contact" class="hover:text-blue-500 transition">Contact</a></li>
+            <li><a href="/feedback" class="hover:text-blue-500 transition">Feedback</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="text-lg font-semibold mb-3 text-gray-900">Follow Us</h4>
+          <div class="flex space-x-4">
+            <!-- Social Icons Here -->
+          </div>
+        </div>
+      </div>
+      <div class="bg-slate-200 text-center text-sm py-4 text-gray-600">
+        © 2025 Feedbackly. All rights reserved.
+      </div>
+    </footer>
+
+  </div>
+</body>
 </html>

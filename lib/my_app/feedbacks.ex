@@ -28,4 +28,15 @@ defmodule MyApp.Feedbacks do
   def change_feedback(%Feedback{} = feedback, attrs \\ %{}) do
     Feedback.changeset(feedback, attrs)
   end
+  def get_latest_feedback do
+  Repo.one(from f in Feedback, order_by: [desc: f.inserted_at], limit: 1)
+end
+ # Optimized search by firstname
+  def search_feedback_by_firstname(search_term) do
+    from(f in Feedback,
+      where: ilike(f.firstname, ^"%#{search_term}%")
+    )
+    |> Repo.all()
+  end
+
 end

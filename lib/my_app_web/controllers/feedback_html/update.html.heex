@@ -1,4 +1,4 @@
-<form  action={~p"/feedback/update/#{@feedback.id}"}
+<form  action={~p"/feedbacks"}
  method="post"  value="put" class="max-w-xl mx-auto bg-white p-8 rounded-xl shadow space-y-6">
   <input type="hidden" name="_csrf_token" value={Plug.CSRFProtection.get_csrf_token()} />
   <input type="hidden" name="_method" value="put" />
