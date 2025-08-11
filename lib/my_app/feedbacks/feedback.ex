@@ -1,6 +1,7 @@
 defmodule MyApp.Feedbacks.Feedback do
   use Ecto.Schema
   import Ecto.Changeset
+    @derive {Jason.Encoder, only: [:id, :firstname, :lastname, :email, :feedback]}
   schema "feedback" do
     field :firstname, :string
     field :lastname ,:string
@@ -12,6 +13,6 @@ defmodule MyApp.Feedbacks.Feedback do
   @doc false
   def changeset(feedback, attrs) do
     feedback
-    |> cast(attrs, [:firstname, :lastname , :email, :feedback])
+    |> cast(attrs, [:firstname, :lastname , :email, :feedback ,:user_id])
     end
 end

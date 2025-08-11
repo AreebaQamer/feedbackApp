@@ -23,8 +23,8 @@ defmodule MyAppWeb.Endpoint do
     at: "/",
     from: :my_app,
     gzip: false,
-    only: MyAppWeb.static_paths()
-
+    only: MyAppWeb.static_paths(),
+    only: ~w(css fonts images js favicon.ico robots.txt swagger.json)
   # Code reloading can be explicitly enabled under the
   # :code_reloader configuration of your endpoint.
   if code_reloading? do

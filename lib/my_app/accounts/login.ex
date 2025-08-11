@@ -9,12 +9,14 @@ defmodule MyApp.Accounts.Login do
     has_many :feedbacks, MyApp.Feedbacks.Feedback, foreign_key: :user_id
     timestamps()
   end
+  
   @doc false
   def changeset(login, attrs) do
     login
     |> cast(attrs, [:name, :email, :password, :password_hash])
     |> validate_required([:name ,:email, :password])
-    |> unique_constraint(:email)
+    |> validate_format(:email, ~r/@/)
+    |> unique_constraint(:email, message: "This email is already taken")
     |> put_pass_hash()
   end
   defp put_pass_hash(changeset) do

@@ -13,7 +13,7 @@ defmodule MyAppWeb.PageController do
       render(conn, :contact)
     end
   def dashboard(conn, _params) do
-    feedback = Feedbacks.get_latest_feedback() # ya koi logic jisse ek specific feedback mile
+    feedback = Feedbacks.get_latest_feedback()
     render(conn, :dashboard , feedback: feedback)
   end
 end

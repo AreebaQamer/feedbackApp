@@ -1,0 +1,413 @@
+{
+  "swagger": "2.0",
+  "paths": {
+    "/api/update_feedbacks/{id}": {
+      "put": {
+        "tags": [
+          "Api"
+        ],
+        "summary": "Update feedback",
+        "responses": {
+          "422": {
+            "description": "Validation error"
+          },
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/Feedback_updateResponse"
+            },
+            "description": "Success"
+          }
+        },
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "type": "integer",
+            "required": true,
+            "name": "id",
+            "in": "path",
+            "description": "Feedback ID"
+          },
+          {
+            "type": "string",
+            "required": true,
+            "name": "firstname",
+            "in": "formData",
+            "description": "First Name"
+          },
+          {
+            "type": "string",
+            "required": true,
+            "name": "lastname",
+            "in": "formData",
+            "description": "Last Name"
+          },
+          {
+            "type": "string",
+            "required": true,
+            "name": "email",
+            "in": "formData",
+            "description": "Email"
+          },
+          {
+            "type": "string",
+            "required": true,
+            "name": "feedback",
+            "in": "formData",
+            "description": "Feedback message"
+          }
+        ],
+        "operationId": "MyAppWeb.ApiController.update_feedback",
+        "description": "Update an existing feedback entry",
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ]
+      }
+    },
+    "/api/hello": {
+      "get": {
+        "tags": [
+          "Api"
+        ],
+        "summary": "Say hello",
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/HelloResponse"
+            },
+            "description": "Success"
+          }
+        },
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "operationId": "MyAppWeb.ApiController.index",
+        "description": "Returns a greeting"
+      }
+    },
+    "/api/feedbacks": {
+      "get": {
+        "tags": [
+          "Api"
+        ],
+        "summary": "Get all feedbacks",
+        "responses": {
+          "200": {
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Feedback"
+              }
+            },
+            "description": "Success"
+          }
+        },
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "operationId": "MyAppWeb.ApiController.get_feedbacks",
+        "description": "Returns the list of feedbacks"
+      }
+    },
+    "/api/delete_feedbacks/{id}": {
+      "delete": {
+        "tags": [
+          "Api"
+        ],
+        "summary": "Delete feedback",
+        "responses": {
+          "404": {
+            "description": "Not found"
+          },
+          "200": {
+            "description": "Deleted successfully"
+          }
+        },
+        "parameters": [
+          {
+            "type": "integer",
+            "required": true,
+            "name": "id",
+            "in": "path",
+            "description": "Feedback ID"
+          }
+        ],
+        "operationId": "MyAppWeb.ApiController.delete_feedback",
+        "description": "Deletes a feedback entry by ID"
+      }
+    },
+    "/api/add_feedbacks": {
+      "post": {
+        "tags": [
+          "Api"
+        ],
+        "summary": "Add feedback",
+        "responses": {
+          "422": {
+            "description": "Validation error"
+          },
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/FeedbackResponse"
+            },
+            "description": "Success"
+          }
+        },
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "type": "string",
+            "required": true,
+            "name": "firstname",
+            "in": "formData",
+            "description": "First Name"
+          },
+          {
+            "type": "string",
+            "required": true,
+            "name": "lastname",
+            "in": "formData",
+            "description": "Last Name"
+          },
+          {
+            "type": "string",
+            "required": true,
+            "name": "email",
+            "in": "formData",
+            "description": "Email"
+          },
+          {
+            "type": "string",
+            "required": true,
+            "name": "feedback",
+            "in": "formData",
+            "description": "Feedback message"
+          }
+        ],
+        "operationId": "MyAppWeb.ApiController.add_feedback",
+        "description": "Add a new feedback entry",
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "HelloResponse": {
+      "type": "object",
+      "title": "Hello response",
+      "required": [
+        "message"
+      ],
+      "properties": {
+        "message": {
+          "type": "string",
+          "description": "Response message"
+        }
+      },
+      "example": {
+        "message": "Hello from Phoenix + Swagger"
+      },
+      "description": "Response for hello API"
+    },
+    "Feedback_updateResponse": {
+      "type": "object",
+      "title": "Feedback update response",
+      "required": [
+        "message",
+        "status"
+      ],
+      "properties": {
+        "status": {
+          "type": "string",
+          "description": "Status"
+        },
+        "message": {
+          "type": "string",
+          "description": "Message"
+        },
+        "data": {
+          "description": "Updated feedback data",
+          "$ref": "#/definitions/Feedback"
+        }
+      },
+      "example": {
+        "lastname": "Qamer",
+        "firstname": "Areeba",
+        "feedback": "Great work!",
+        "email": "areebaqamer14@gmail.com"
+      },
+      "description": "Response after updating feedback"
+    },
+    "FeedbackUpdateCreate": {
+      "type": "object",
+      "title": "Update feedback params",
+      "required": [
+        "feedback",
+        "email",
+        "lastname",
+        "firstname"
+      ],
+      "properties": {
+        "lastname": {
+          "type": "string",
+          "description": "Last Name"
+        },
+        "firstname": {
+          "type": "string",
+          "description": "First Name"
+        },
+        "feedback": {
+          "type": "string",
+          "description": "Feedback message"
+        },
+        "email": {
+          "type": "string",
+          "description": "Email"
+        }
+      },
+      "example": {
+        "lastname": "Qamer",
+        "firstname": "Areeba",
+        "feedback": "Great work!",
+        "email": "areebaqamer14@gmail.com"
+      },
+      "description": "Parameters required to update feedback"
+    },
+    "FeedbackResponse": {
+      "type": "object",
+      "title": "Feedback response",
+      "required": [
+        "message",
+        "status"
+      ],
+      "properties": {
+        "status": {
+          "type": "string",
+          "description": "Status"
+        },
+        "message": {
+          "type": "string",
+          "description": "Message"
+        },
+        "data": {
+          "description": "Created feedback data",
+          "$ref": "#/definitions/Feedback"
+        }
+      },
+      "example": {
+        "status": "success",
+        "message": "Feedback created successfully",
+        "data": {
+          "user_id": 10,
+          "lastname": "Qamer",
+          "inserted_at": "2024-08-11T10:00:00Z",
+          "id": 1,
+          "firstname": "Areeba",
+          "feedback": "Great work!",
+          "email": "areebaqamer14@gmail.com"
+        }
+      },
+      "description": "Response for add feedback API"
+    },
+    "FeedbackCreate": {
+      "type": "object",
+      "title": "Create feedback params",
+      "required": [
+        "feedback",
+        "email",
+        "lastname",
+        "firstname"
+      ],
+      "properties": {
+        "lastname": {
+          "type": "string",
+          "description": "Last Name"
+        },
+        "firstname": {
+          "type": "string",
+          "description": "First Name"
+        },
+        "feedback": {
+          "type": "string",
+          "description": "Feedback message"
+        },
+        "email": {
+          "type": "string",
+          "description": "Email"
+        }
+      },
+      "example": {
+        "lastname": "Qamer",
+        "firstname": "Areeba",
+        "feedback": "Great work!",
+        "email": "areebaqamer14@gmail.com"
+      },
+      "description": "Parameters required to create feedback"
+    },
+    "Feedback": {
+      "type": "object",
+      "title": "Feedback list response",
+      "required": [
+        "inserted_at",
+        "user_id",
+        "feedback",
+        "email",
+        "lastname",
+        "firstname",
+        "id"
+      ],
+      "properties": {
+        "user_id": {
+          "type": "integer",
+          "description": "User ID"
+        },
+        "lastname": {
+          "type": "string",
+          "description": "Last Name"
+        },
+        "inserted_at": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Created at"
+        },
+        "id": {
+          "type": "integer",
+          "description": "ID"
+        },
+        "firstname": {
+          "type": "string",
+          "description": "First Name"
+        },
+        "feedback": {
+          "type": "string",
+          "description": "Feedback message"
+        },
+        "email": {
+          "type": "string",
+          "description": "Email"
+        }
+      },
+      "example": {
+        "user_id": 10,
+        "lastname": "Qamer",
+        "inserted_at": "2024-08-11T10:00:00Z",
+        "id": 1,
+        "firstname": "Areeba",
+        "feedback": "Great work!",
+        "email": "areebaqamer14@gmail.com"
+      },
+      "description": "Fetch all feedback responses"
+    }
+  },
+  "host": "localhost:4000",
+  "info": {
+    "title": "feedbackly",
+    "version": "0.0.1"
+  }
+}

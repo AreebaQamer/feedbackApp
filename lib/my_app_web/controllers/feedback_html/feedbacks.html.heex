@@ -134,7 +134,7 @@ h1 {
         clearTimeout(timeoutId);
         const query = searchInput.value.trim();
         timeoutId = setTimeout(() => {
-          fetch(/feedbacks?search=${encodeURIComponent(query)})
+        fetch(`/feedbacks?search=${encodeURIComponent(query)}`)
             .then(response => response.text())
             .then(html => {
               const parser = new DOMParser();

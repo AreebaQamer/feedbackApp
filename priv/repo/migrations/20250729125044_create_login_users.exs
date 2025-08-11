@@ -4,7 +4,7 @@ defmodule MyApp.Repo.Migrations.CreateLoginUsers do
   def change do
     create table(:login_users) do
       add :name ,:string
-      add :email, :string
+      add :email, :string , null: false
       add :password_hash, :string
 
       timestamps(type: :utc_datetime)

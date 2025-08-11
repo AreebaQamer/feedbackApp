@@ -22,6 +22,16 @@ config :my_app, MyAppWeb.Endpoint,
   pubsub_server: MyApp.PubSub,
   live_view: [signing_salt: "PwVWMKu/"]
 
+
+config :my_app, :phoenix_swagger,
+  swagger_files: %{
+    "priv/static/swagger.json" => [
+      router: MyAppWeb.Router,     
+      endpoint: MyAppWeb.Endpoint
+    ]
+  }
+
+
 # Configures the mailer
 #
 # By default it uses the "Local" adapter which stores the emails
@@ -60,6 +70,9 @@ config :logger, :console,
 
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
+
+
+
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.

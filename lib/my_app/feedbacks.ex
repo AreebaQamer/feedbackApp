@@ -10,6 +10,7 @@ defmodule MyApp.Feedbacks do
   def get_feedback!(id), do: Repo.get!(Feedback, id)
  # create a new feedback
   def create_feedback(attrs \\ %{}) do
+
     %Feedback{}
     |> Feedback.changeset(attrs)
     |> Repo.insert()
@@ -20,6 +21,7 @@ defmodule MyApp.Feedbacks do
     |> Feedback.changeset(attrs)
     |> Repo.update()
   end
+
   # delete a feedback
   def delete_feedback(%Feedback{} = feedback) do
     Repo.delete(feedback)
@@ -38,5 +40,39 @@ end
     )
     |> Repo.all()
   end
+
+  def list_feedbacks_by_userid(user_id) do
+     from(f in Feedback,
+     where: f.user_id == ^user_id,
+     select: f
+   )
+   |> Repo.all()
+end
+def concat_names() do
+  from(f in Feedback,
+    select: %{
+      id: f.id,
+      name: fragment("concat(?, ' ', ?)", f.firstname, f.lastname),
+      email: f.email,
+      feedback: f.feedback,
+
+    }
+  )
+  |> Repo.all()
+end
+
+def update_feedback_by_id(id, attrs) do
+  case Repo.get(Feedback, id) do
+    nil -> {:error, %{message: "Feedback not found"}}
+    feedback -> update_feedback(feedback, attrs)
+  end
+end
+def delete_feedback_by_id(id) do
+ case Repo.get(Feedback , id) do
+  nil ->
+    {:error , %{ message: "Feedback not found"}}
+    feedback -> delete_feedback(feedback)
+ end
+end
 
 end

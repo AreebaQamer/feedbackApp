@@ -1,5 +1,7 @@
 defmodule MyAppWeb.Router do
   use MyAppWeb, :router
+   import MyAppWeb.Profile
+
   pipeline :browser do
     plug :accepts, ["html"]
     plug :fetch_session
@@ -7,10 +9,27 @@ defmodule MyAppWeb.Router do
     plug :put_root_layout, html: {MyAppWeb.Layouts, :root}
     plug :protect_from_forgery
     plug :put_secure_browser_headers
+    plug :fetch_current_user
   end
-
   pipeline :api do
     plug :accepts, ["json"]
+  end
+  scope "/api", MyAppWeb do
+    pipe_through :api
+    get "/hello", ApiController, :index
+    get "/feedbacks", ApiController, :get_feedbacks
+    post "/add_feedbacks", ApiController, :add_feedback
+    put "/update_feedbacks/:id", ApiController, :update_feedback
+    delete "/delete_feedbacks/:id" , ApiController , :delete_feedback
+
+
+
+  end
+  # Swagger UI serve karne ka route
+  scope "/" do
+    forward "/swagger", PhoenixSwagger.Plug.SwaggerUI,
+      otp_app: :my_app,
+      swagger_file: "swagger.json"
   end
   scope "/", MyAppWeb do
  pipe_through :browser
@@ -21,7 +40,7 @@ defmodule MyAppWeb.Router do
  get "/feedback/greetings", FeedbackController, :greetings
 # View all feedback entries with search
  get "/feedbacks", FeedbackController, :get_feedback
-# route to add database enteries in dn
+# route to add database enteries in db
  post "/feedbacks" , FeedbackController , :create
  # update
  get "/feedback/edit/:id", FeedbackController, :edit
@@ -42,7 +61,11 @@ defmodule MyAppWeb.Router do
    post "/register/user" , RegisterController , :register_user
    get "/users/:user_id/feedback", UserController, :get_userfeedbacks
    get "/users" , UserController , :get_users
+   get "/feedbacks/user", FeedbackController, :get_feedback_by_user_id
+   get "/logout", UserController, :logout
+   get "/profile" , ProfileController , :profile
   end
+
 
   # Other scopes may use custom stacks.
   # scope "/api", MyAppWeb do

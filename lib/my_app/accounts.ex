@@ -50,4 +50,5 @@ defmodule MyApp.Accounts do
    )
    |> Repo.all()
    end
+
 end

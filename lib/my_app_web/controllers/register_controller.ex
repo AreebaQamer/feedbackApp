@@ -12,7 +12,6 @@ defmodule MyAppWeb.RegisterController do
     conn
     |> put_flash(:info, "Registered successfully!")
     |> redirect(to: "/")
-
   {:error, changeset} ->
     changeset = %{changeset | action: :insert}
     render(conn, "new.html", changeset: changeset)

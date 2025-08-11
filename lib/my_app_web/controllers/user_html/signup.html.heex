@@ -35,6 +35,12 @@
     <input type="email" id="email" name="email" required 
            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" 
            placeholder="you@example.com"/>
+     
+     <%= if @changeset.action && Keyword.has_key?(@changeset.errors, :email) do %>
+    <p class="text-red-500 text-sm mt-1">
+      <%= elem(Keyword.get(@changeset.errors, :email), 0) %>
+    </p>
+  <% end %>
   </div>
   <!-- Password -->
   <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
